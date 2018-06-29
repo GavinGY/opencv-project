@@ -93,3 +93,24 @@ class CaptureManaget(objrct):
 	self._frame = None
 	self._enteredFrame = False
 	
+	def writeImage(self,filename):
+		"""Write the next exited frame to an image file."""
+		self._imageFilename = filename
+
+	def startWritingVideo(self,filename,
+			encoding = cv2.VideoWriter_fource('I','4','2','2')):
+		"""Start wrting exited frames to a video file."""
+		self._videoFilename = filename
+		self._videoEncoding = encoding
+
+	def stopWritingVideo(self):
+		"""Stop writing exited frames to a video file."""
+		self._videoFilename = None
+		self._videoEncoding = None
+	 	self._videoWriter = None
+
+	def _writeVidoeFrame(self):
+		if not self.isWritingVideo:
+			return
+		if self._videoWriter is None:
+			fps = self._capture.get(cv2. )
