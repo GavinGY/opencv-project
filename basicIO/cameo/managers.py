@@ -110,7 +110,31 @@ class CaptureManaget(objrct):
 	 	self._videoWriter = None
 
 	def _writeVidoeFrame(self):
+
 		if not self.isWritingVideo:
 			return
+
 		if self._videoWriter is None:
-			fps = self._capture.get(cv2. )
+			fps = self._capture.get(cv2.CAP_PROP_FPS)
+			if fps == 0.0:
+				#The capture's FPS is unknown so use an estimate.
+				if self._framesElapsed < 20:
+					# Wait until more frames elapse so that the estimate is more stable.
+					return
+				else:
+					fps = self._fpsEstimate
+			size = (int(self._capture.get(cv2.CAP_PROP_FRAME_WIDTH)),int(self._capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+
+			
+
+
+
+
+
+
+
+
+
+
+
+			
