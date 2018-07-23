@@ -124,6 +124,34 @@ class CaptureManaget(objrct):
 				else:
 					fps = self._fpsEstimate
 			size = (int(self._capture.get(cv2.CAP_PROP_FRAME_WIDTH)),int(self._capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+		
+		self._videoWriter = cv2.VideoWriter(self._videoFilename,self._videoEncoding,fps,size)
+
+
+class windowManager(object):
+	
+	def __init__(self,widnowName,keypressCallback = None):
+		self.keypressCallback = keypressCallback
+		self._windowName = widnowName
+		self._isWindowCreated = False
+
+	@property
+	def isWindowCreated(self):
+		return self._isWindowCreated
+		def createWindow(self):
+		cv2.namedWindow(self._windowName)
+		self._isWindowCreated = True
+	
+	def show(self,frame):
+		cv2.destroyWindow(self._windowName)
+		self._isWindowCreated = False
+
+	def processEvents(self):
+		keycode = cv2.waitkey(1)
+		if self.keypressCallback is not None and keycode != -1:
+			# Discard any non-ASCII info encoded by GTK.
+			keycode &= 0xFF
+			self.keypressCallback(keycode)
 
 			
 
